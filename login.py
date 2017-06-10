@@ -1,5 +1,3 @@
-import urllib
-import urllib2
 import requests
 import uuid
 from bs4 import BeautifulSoup
@@ -7,7 +5,7 @@ from bs4 import BeautifulSoup
 #########################
 # input your id / pw / gall_id
 dc_id = 'example' 
-dc_pw = '123123'
+dc_pw = '123'
 gallery_id = 'japanese'
 #########################
 
