@@ -7,9 +7,11 @@ from bs4 import BeautifulSoup
 ##############################
 gallery_id = 'japanese'
 page_number = '1'
-nickname = '%EA%B7%B9%ED%9D%91%ED%97%AC%EB%A0%8C%EC%BC%88%EB%9F%AC'
+nickname = '%EC%9C%A0%EC%97%90%EC%B0%A1'
 pos = '-10000'
 ##############################
+
+delete_list = []
 
 page_cnt = 0
 notice_cnt = 0
@@ -35,6 +37,9 @@ while True:
 
 	for kk in range(0,len(link)):
 	    print link[kk]
+            ps_notice = str(link[kk])
+            delete_list.append(ps_notice[21:27])
+            print ps_notice[21:27]
 	    notice_cnt += 1
             total_cnt += 1
 	page_cnt += 1
@@ -51,3 +56,7 @@ while True:
         break
 
 print "total notice = {}".format(total_cnt)
+print "delete_list_cnt = {}".format(len(delete_list))
+
+print delete_list
+
