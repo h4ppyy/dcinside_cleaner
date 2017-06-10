@@ -1,34 +1,50 @@
 import urllib
 import urllib2
 import requests
+import uuid
 from bs4 import BeautifulSoup
 
-#------------ INIT ------------#
-payload = {} 
-sessionID = 'edvrkg5q3rpbv66algrth2la56'
-noticeNUM = '231786'
-csrfToken = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+#########################
+# input your id / pw
+dc_id = 'example' 
+dc_pw = '123123'
+#########################
+
+#------------ COOKIE GERNERATE ------------#
+hello = uuid.uuid4()
+hello = str(hello).replace("-","")
+print hello
 
 #------------ LOGIN ------------#
-url="https://dcid.dcinside.com/join/member_check.php"
-data = {
+url = "https://dcid.dcinside.com/join/member_check.php"
+cookies = {'PHPSESSID':hello}
+payload = {
     's_url':'http://www.dcinside.com/',
     'ssl':'Y',
-    'user_id':'example0',
-    'password':'####'
+    'user_id':dc_id,
+    'password':dc_pw
 }
-endata = urllib.urlencode(data)
-request = urllib2.Request(url, endata)
-response = urllib2.urlopen(request)
-cookie = response.headers.get('Set-Cookie')
-print cookie
-realcookie = "'" + cookie[10:42] + "'"
-print realcookie
+headers = {
+    'Upgrade-Insecure-Requests':'1',
+    'DNT':'1',
+    'Referer':'http://www.dcinside.com/'
+}
+
+# DEBUG
+print cookies
+r = requests.post(url, cookies=cookies, data=payload, headers=headers)
+
+#------------ INIT ------------#
+payload = {}
+sessionID = hello 
+noticeNUM = '231815'
+csrfToken = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 
 #------------ GET FORM DATA ------------#
 print ("==================================================================================================")
 url="http://gall.dcinside.com/board/delete/?id=japanese&no=" + noticeNUM
 cookies = {'PHPSESSID':sessionID,'ci_c':csrfToken,'notice_no':noticeNUM}
+data = {}
 con = requests.get(url, data=data, cookies=cookies).text 
 soup = BeautifulSoup(con, "lxml")
 link = soup.find_all("input")
