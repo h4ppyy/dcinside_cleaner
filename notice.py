@@ -3,11 +3,12 @@ import urllib2
 import requests
 import uuid
 from bs4 import BeautifulSoup
+from urllib import quote
 
 ##############################
 gallery_id = 'japanese'
 page_number = '1'
-nickname = '%EC%9C%A0%EC%97%90%EC%B0%A1'
+nickname = quote('닉네임')
 pos = '-10000'
 ##############################
 
